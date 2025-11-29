@@ -2,24 +2,26 @@ import sys
 input = sys.stdin.readline
 
 n = int(input())
-tree = []
+
+data = []
 for i in range(n):
-    tree.append(list(map(int, input().rstrip())))
+    data.append(list(map(int, input().rstrip())))
     
-def Quad_tree(y, x, n):
-    chk = tree[y][x]
-    for i in range(y, y+n):
-        for j in range(x, x+n):
-            if chk != tree[i][j]:
+def rec(x, y, n):
+    d = data[x][y]
+    for i in range(x, x+n):
+        for j in range(y, y+n):
+            if d != data[i][j]:
+                print("(",end='')
                 m = n // 2
-                print('(',end='')
-                Quad_tree(y, x, m)
-                Quad_tree(y, x+m, m)
-                Quad_tree(y+m, x, m)
-                Quad_tree(y+m, x+m, m)
-                print(')',end='')
+                rec(x, y, m)
+                rec(x, y+m, m)
+                rec(x+m, y, m)
+                rec(x+m, y+m, m)
+                print(")",end='')
                 return
-    if chk == 1: print('1',end='')
-    else: print('0',end='')
+    if d == 1: print(1,end='')
+    else:print(0,end='')
     
-Quad_tree(0,0,n)
+
+rec(0, 0, n)
