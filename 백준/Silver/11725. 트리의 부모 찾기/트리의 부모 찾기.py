@@ -23,5 +23,4 @@ def bfs():
                 visited[i] = v
 
 bfs()
-for i in range(2, v+1):
-    print(visited[i])
+print('\n'.join(map(str, visited[2:])))
