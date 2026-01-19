@@ -1,10 +1,6 @@
-n = input().split('-')
-answer = 0
-x = sum(map(int,n[0].split('+')))
-answer += x
-
-for x in n[1:]:
-    x = sum(map(int, x.split('+')))
-    answer -= x
-    
-print(answer)
+data = input().split('-')
+ans = sum(map(int,data[0].split('+')))
+for x in data[1:]:
+    x=sum(map(int,x.split('+')))
+    ans-=x
+print(ans)
