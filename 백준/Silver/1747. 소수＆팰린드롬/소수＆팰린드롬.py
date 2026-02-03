@@ -14,7 +14,7 @@ def palindrom(n):
 
 n = int(input())
 while True:
-    if prime(n) and palindrom(n):
+    if palindrom(n) and prime(n):
         print(n)
         break
     n += 1
