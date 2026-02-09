@@ -1,8 +1,16 @@
-from itertools import combinations
-
 n, m = map(int, input().split())
 
-arr = [i for i in range(1, n+1)]
+data = []
 
-for i in combinations(arr, m):
-    print(*i)
+def back(start):
+    if len(data) == m:
+        print(' '.join(map(str, data)))
+        return
+    
+    for i in range(start, n+1):
+        if i not in data:
+            data.append(i)
+            back(i)
+            data.pop()
+
+back(1)
