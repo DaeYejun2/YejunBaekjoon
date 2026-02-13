@@ -1,0 +1,5 @@
+string = input()
+s = input()
+le = len(string)
+string = string.replace(s, '')
+print((le-len(string))//len(s))
