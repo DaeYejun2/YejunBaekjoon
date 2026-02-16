@@ -4,14 +4,13 @@ INF = int(1e8)
 
 distance = [INF] * (n+1)
 graph = [[] for _ in range(n+1)]
-
+pre = [0] * (n+1)
 
 for i in range(m):
     u,v,w = map(int, input().split())
     graph[u].append((v,w))
 
 s, e = map(int, input().split())
-pre = [[s] for _ in range(n+1)] # 역추적 테이블
 
 import heapq
 
@@ -25,12 +24,20 @@ while q:
     if distance[now] < dist:
         continue
 
-    for next_loc, cost in graph[now]:
-        if dist+cost < distance[next_loc]:
-            distance[next_loc] = dist+cost
-            heapq.heappush(q, (dist+cost, next_loc))
-            pre[next_loc] = pre[now] + [next_loc]
+    for next_node, cost in graph[now]:
+        if dist+cost < distance[next_node]:
+            distance[next_node] = dist+cost
+            heapq.heappush(q, (dist+cost, next_node))
+            pre[next_node] = now
 
 print(distance[e])
-print(len(pre[e]))
-print(*pre[e])
+path = []
+curr = e
+while curr != 0:
+    path.append(curr)
+    curr = pre[curr]
+
+path.reverse()
+
+print(len(path))
+print(*path)
