@@ -1,43 +1,38 @@
+import sys
+import heapq
+input = sys.stdin.readline
+
 n = int(input())
 m = int(input())
-INF = int(1e8)
-
-distance = [INF] * (n+1)
+INF = int(1e9)
 graph = [[] for _ in range(n+1)]
-pre = [0] * (n+1)
+distanct = [INF]*(n+1)
+pre = [0]*(n+1)
 
 for i in range(m):
-    u,v,w = map(int, input().split())
-    graph[u].append((v,w))
+    a,b,c, = map(int,input().split())
+    graph[a].append((b,c))
 
-s, e = map(int, input().split())
-
-import heapq
-
+start, end = map(int,input().split())
 q = []
-heapq.heappush(q, (0, s))
-distance[s] = 0
-
+heapq.heappush(q,(0, start))
 while q:
     dist, now = heapq.heappop(q)
-        
-    if distance[now] < dist:
-        continue
+
+    if distanct[now] < dist: continue
 
     for next_node, cost in graph[now]:
-        if dist+cost < distance[next_node]:
-            distance[next_node] = dist+cost
-            heapq.heappush(q, (dist+cost, next_node))
+        if distanct[next_node] > dist+cost:
+            distanct[next_node] = dist+cost
+            heapq.heappush(q,(dist+cost, next_node))
             pre[next_node] = now
 
-print(distance[e])
-path = []
-curr = e
-while curr != 0:
-    path.append(curr)
+print(distanct[end])
+curr = end
+path = [curr]
+while curr != start:
     curr = pre[curr]
-
-path.reverse()
-
+    path.append(curr)
+    
 print(len(path))
-print(*path)
+print(*path[::-1])
