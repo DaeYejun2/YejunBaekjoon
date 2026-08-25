@@ -1,26 +1,17 @@
 #include <string>
 #include <vector>
-#include <deque>
 
 using namespace std;
 
 vector<int> solution(vector<int> prices) {
-    vector<int> answer;
-    deque<int> q;
+    int ln = prices.size();
+    vector<int> answer(ln);
     
-    for (int p: prices) q.push_back(p);
-    
-    while(!q.empty()){
-        int cur = q.front();
-        q.pop_front();
-        
-        int sec = 0;
-        for(int i = 0; i < q.size(); i++){
-            sec++;
-            
-            if (cur > q[i]) break;
+    for (int i = 0; i < ln; i++){
+        for (int j = i+1; j < ln; j++){
+            answer[i]++;
+            if (prices[i] > prices[j]) break;
         }
-        answer.push_back(sec);
     }
     
     return answer;
