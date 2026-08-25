@@ -1,10 +1,10 @@
 # [level 1] 폰켓몬 - 1845 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/1845) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/1845?language=cpp) 
 
 ### 성능 요약
 
-메모리: 10 MB, 시간: 0.73 ms
+메모리: 4.89 MB, 시간: 0.50 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 02월 13일 00:46:24
+2026년 08월 25일 17:12:44
 
 ### 문제 설명
 
