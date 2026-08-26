@@ -9,17 +9,17 @@ int solution(vector<int> scoville, int K) {
     
     for(int s: scoville) pq.push(s);
     int cnt = 0;
-    while(!pq.empty() && pq.top() < K){
-        if(cnt > scoville.size()) return -1;
+    
+    while(pq.size() >= 2 && pq.top() < K){
         int x = pq.top();
         pq.pop();
-        if(pq.empty()) return -1;
+        
         int tmp = pq.top();
         pq.pop();
-        tmp = tmp*2 + x;
-        pq.push(tmp);
+        
+        pq.push(tmp*2 + x);
         cnt++;
     }    
     
-    return cnt;
+    return (pq.top() < K) ? -1 : cnt;
 }
