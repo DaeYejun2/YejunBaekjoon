@@ -26,7 +26,7 @@ vector<int> solution(vector<string> genres, vector<int> plays) {
         auto& songs = song_list[genre];  // 장르의 재생수와 고유번호가 들어가죠
         
         // 장르 내 곡 정렬
-        sort(songs.begin(), songs.end(), [](auto& a, auto&& b){
+        sort(songs.begin(), songs.end(), [](auto& a, auto& b){
             return a.first == b.first ? a.second < b.second : a.first > b.first;
         });  // 재생 수가 같으면 고유번호 오름차순 , 다르면 재생 수 내림차순
         
