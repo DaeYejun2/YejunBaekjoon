@@ -1,36 +1,41 @@
 #include <string>
 #include <vector>
-#include <algorithm>
 #include <unordered_set>
 
 using namespace std;
 
+bool is_prime(int n){
+    if(n < 2) return false;
+    for(int i = 2; i < n; i++){
+        if (n % i == 0) return false;
+    }
+    return true;  // 소수노!
+}
+
+void dfs(string& numbers, string cur, unordered_set<int>& unique_nums, vector<bool>& visited){
+    // 빈문자열이 아니면 unique에 넣기
+    if(!cur.empty()) unique_nums.insert(stoi(cur));
+    
+    for(int i = 0; i < numbers.length(); i++){
+        if(!visited[i]){
+            visited[i] = true;
+            dfs(numbers, cur+numbers[i], unique_nums, visited);
+            visited[i] = false;
+        }
+    }
+}
+
 int solution(string numbers) {
     int answer = 0;
-    int n = 9999999;
-    vector<bool> is_prime(n+1, true);
-    is_prime[0] = false; is_prime[1] = false;
-    
-    for(int i = 2; i*i<=n; i++){
-        if(is_prime[i]){
-            for(int j = i*i; j <= n; j+=i){
-                is_prime[j] = false;
-            }
-        }
-    }
     unordered_set<int> unique_nums;
-    sort(numbers.begin(), numbers.end());
+    vector<bool> visited(numbers.length(), false);
     
-    do{
-        for(int len = 1; len <= numbers.size(); len++){
-            int num = stoi(numbers.substr(0,len));
-            unique_nums.insert(num);
-        }
-    }while(next_permutation(numbers.begin(), numbers.end()));
-
-    for(int n: unique_nums){
-        if(is_prime[n]) answer++;
-    }
+    // 백트래킹으로 만들 수 있는 모든 수 생성
+    dfs(numbers, "", unique_nums, visited);
+        
+    for(int n: unique_nums)
+        if(is_prime(n)) answer++;
+    
     
     return answer;
 }
