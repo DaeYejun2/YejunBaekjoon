@@ -11,7 +11,7 @@ void bfs(string start, string target, vector<string>& words){
     vector<bool>visited(words.size(), false);
     
     while(!q.empty()){
-        auto& [cur, idx] = q.front(); q.pop();
+        auto [cur, idx] = q.front(); q.pop();
         if (cur==target){
             answer = min(answer, idx);
             continue;
