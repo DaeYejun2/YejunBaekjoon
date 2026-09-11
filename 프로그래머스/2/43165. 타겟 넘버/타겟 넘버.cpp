@@ -2,19 +2,25 @@
 #include <vector>
 
 using namespace std;
-int answer = 0;
-void dfs(int idx, int sum, int target, const vector<int>& numbers){
-    if(idx == numbers.size()){
-        if (sum == target) answer++;
-        return;
+int cnt = 0;
+
+void dfs(int target, vector<int>& numbers, int n, int idx, int cur){
+    if(idx == n){
+        if(target == cur){
+            cnt++;
+            return;
+        }
+    return;
     }
     
-    dfs(idx+1, sum+numbers[idx], target, numbers);
-    dfs(idx+1, sum-numbers[idx], target, numbers);
+    // if(cur >= target) return;
+    dfs(target, numbers, n, idx+1, cur+numbers[idx]);
+    dfs(target, numbers, n, idx+1, cur-numbers[idx]);
+    
 }
 
-
 int solution(vector<int> numbers, int target) {
-    dfs(0,0,target,numbers);
-    return answer;
+    int n = numbers.size();
+    dfs(target, numbers, n, 0, 0);
+    return cnt;
 }
