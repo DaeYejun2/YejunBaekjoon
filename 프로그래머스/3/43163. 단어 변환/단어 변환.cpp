@@ -1,39 +1,37 @@
 #include <string>
 #include <vector>
-#include <algorithm>
+#include <queue>
 
 using namespace std;
-int min_answer = 51;
+int answer = 101;
 
-bool is_one_diff(string& a, string& b){
-    int diff = 0;
-    for(int i = 0; i < a.length(); i++){
-        if (a[i] != b[i]) diff++;
-        if(diff > 1) return false;
-    }
-    return diff == 1;
-}
-
-void dfs(string cur, string target, vector<string> words, vector<bool>visited, int count){
-    if(cur == target){
-        min_answer = min(min_answer, count);
-        return;
-    }
-    if(count >= min_answer) return;
+void bfs(string start, string target, vector<string>& words){
+    queue<pair<string, int>> q;
+    q.push({start, 0});
+    vector<bool>visited(words.size(), false);
     
-    for(int i = 0; i < words.size(); i++){
-        if(!visited[i] && is_one_diff(words[i], cur)){
-            visited[i] = true;
-            dfs(words[i], target, words, visited, count+1);
-            visited[i] = false;
+    while(!q.empty()){
+        auto& [cur, idx] = q.front(); q.pop();
+        if (cur==target){
+            answer = min(answer, idx);
+            continue;
+        }
+        for(int j = 0; j < words.size(); j++){
+            int diff = 0;
+            for(int i = 0; i < cur.length(); i++){
+                if (cur[i] != words[j][i]) diff++;
+            }
+            if(!visited[j] && diff == 1){
+                visited[j] = true;
+                q.push({words[j], idx+1});
+            }
         }
     }
+    if (answer == 101) answer = 0;
 }
 
 int solution(string begin, string target, vector<string> words) {
-    int answer = 0;
-    vector<bool>visited(words.size(), false);
-    if(find(words.begin(), words.end(), target) == words.end()) return 0;
-    dfs(begin, target, words, visited, 0);
-    return min_answer;
+    bfs(begin, target, words);
+    
+    return answer;
 }
